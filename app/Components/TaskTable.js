@@ -1,6 +1,48 @@
 import styles from "./TaskTable.module.css";
 import { useState } from "react";
 
+// Inline edit form for editing a task in the table
+function EditTaskForm({ task, users, onSave, onCancel }) {
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.description);
+  const [assignedTo, setAssignedTo] = useState(task.assignedTo);
+  const [status, setStatus] = useState(task.status);
+
+  return (
+    <>
+      <td>
+        <input value={title} onChange={e => setTitle(e.target.value)} required style={{ width: 100 }} />
+      </td>
+      <td>
+        <input value={description} onChange={e => setDescription(e.target.value)} required style={{ width: 150 }} />
+      </td>
+      <td>
+        <select value={assignedTo} onChange={e => setAssignedTo(e.target.value)}>
+          {users.map(user => (
+            <option key={user._id} value={user._id}>{user.name}</option>
+          ))}
+        </select>
+      </td>
+      <td>
+        <input value={task.assignedAt ? new Date(task.assignedAt).toLocaleString() : "-"} disabled style={{ width: 160, background: '#333', color: '#fff', border: 'none', textAlign: 'center' }} />
+      </td>
+      <td>
+        <input value={task.userMessage || '-'} disabled style={{ width: 180, background: '#333', color: '#fff', border: 'none', textAlign: 'center' }} />
+      </td>
+      <td>
+        <select value={status} onChange={e => setStatus(e.target.value)}>
+          <option value="pending">Pending</option>
+          <option value="complete">Completed</option>
+        </select>
+      </td>
+      <td>
+        <button className={styles.actionBtn} onClick={() => onSave({ ...task, title, description, assignedTo, status })} style={{ marginRight: 5 }}>Save</button>
+        <button className={styles.actionBtn} onClick={onCancel}>Cancel</button>
+      </td>
+    </>
+  );
+}
+
 function getTaskStatus(task) {
   if (task.status === "complete") return "Completed";
   if (!task.dueAt || !task.assignedAt) return "Pending";
@@ -91,47 +133,5 @@ export default function TaskTable({ tasks, users, onEdit, onDelete, editTask, on
         </tbody>
       </table>
     </div>
-  );
-}
-
-// Inline edit form for editing a task in the table
-function EditTaskForm({ task, users, onSave, onCancel }) {
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description);
-  const [assignedTo, setAssignedTo] = useState(task.assignedTo);
-  const [status, setStatus] = useState(task.status);
-
-  return (
-    <>
-      <td>
-        <input value={title} onChange={e => setTitle(e.target.value)} required style={{ width: 100 }} />
-      </td>
-      <td>
-        <input value={description} onChange={e => setDescription(e.target.value)} required style={{ width: 150 }} />
-      </td>
-      <td>
-        <select value={assignedTo} onChange={e => setAssignedTo(e.target.value)}>
-          {users.map(user => (
-            <option key={user._id} value={user._id}>{user.name}</option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <input value={task.assignedAt ? new Date(task.assignedAt).toLocaleString() : "-"} disabled style={{ width: 160, background: '#333', color: '#fff', border: 'none', textAlign: 'center' }} />
-      </td>
-      <td>
-        <input value={task.userMessage || '-'} disabled style={{ width: 180, background: '#333', color: '#fff', border: 'none', textAlign: 'center' }} />
-      </td>
-      <td>
-        <select value={status} onChange={e => setStatus(e.target.value)}>
-          <option value="pending">Pending</option>
-          <option value="complete">Completed</option>
-        </select>
-      </td>
-      <td>
-        <button className={styles.actionBtn} onClick={() => onSave({ ...task, title, description, assignedTo, status })} style={{ marginRight: 5 }}>Save</button>
-        <button className={styles.actionBtn} onClick={onCancel}>Cancel</button>
-      </td>
-    </>
   );
 }

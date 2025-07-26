@@ -16,7 +16,7 @@ export default function CreateTask({ users, onCreate }) {
     if (users.length > 0 && assignedTo.length === 0) {
       setAssignedTo([users[0]._id]);
     }
-  }, [users]);
+  }, [users, assignedTo.length]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
