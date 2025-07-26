@@ -1,0 +1,70 @@
+.tableContainer {
+  max-width: 900px;
+  margin: 40px auto;
+  background: rgba(30,30,30,0.92);
+  padding: 32px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+
+.taskTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.taskTable th, .taskTable td {
+  padding: 14px 10px;
+  text-align: left;
+  font-size: 17px;
+}
+
+.taskTable th {
+  background: #222;
+  color: #61dafb;
+  font-weight: 600;
+  border-bottom: 2px solid #444;
+}
+
+.taskTable tr {
+  background: #222;
+  border-bottom: 1px solid #333;
+}
+
+.taskTable tr:nth-child(even) {
+  background: #252525;
+}
+
+.status-complete {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.actionBtn {
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: background 0.2s;
+}
+
+.actionBtn:hover {
+  background: #005bb5;
+}
+
+.deleteBtn {
+  background: #c00;
+}
+
+.deleteBtn:hover {
+  background: #900;
+}
